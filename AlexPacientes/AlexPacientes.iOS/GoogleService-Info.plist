@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>598736635614-tbdggbh2b9lf4uube7kbjsjr5bs71fq1.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.598736635614-tbdggbh2b9lf4uube7kbjsjr5bs71fq1</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDJ-Fi_ptO9k_gv8ONVq3vINeiS3Qy_Rb4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>598736635614</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.mindhelp.pacient</string>
+	<key>PROJECT_ID</key>
+	<string>mindhelp-6fc89</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mindhelp-6fc89.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:598736635614:ios:7b15c452a07a5829fae44f</string>
+	<key>DATABASE_URL</key>
+	<string>https://mindhelp-6fc89.firebaseio.com</string>
+</dict>
+</plist>

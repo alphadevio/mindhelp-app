@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       xmlns:views="clr-namespace:AlexPacientes.Views"
+                       xmlns:labels="clr-namespace:AlexPacientes.Labels"
+                       xmlns:styles="clr-namespace:AlexPacientes.Styles"
+                       xmlns:controls="clr-namespace:AlexPacientes.Controls"
+                       xmlns:innercontrols="clr-namespace:AlexPacientes.Views.Booking.Controls"
+                       xmlns:extensions="clr-namespace:AlexPacientes.Extensions"
+                       xmlns:templates="clr-namespace:AlexPacientes.Views.Booking.Templates"
+                       xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+                       mc:Ignorable="d"
+                       x:Class="AlexPacientes.Views.Booking.BookingView"
+                       NavBarTitle="{x:Static labels:Labels.Booking}"
+                       NavBarTitleAlignment="Start"
+                       NavBarHideLeftIcon="True"
+                       NavBarHideRightIcon="True"                       
+                       NeedsUserSession="{Binding RequireAuthentication}"
+                       RequestAuthenticationCommand="{Binding DisplayLoginPageCommand}"      
+                       NavBarSize="Small">
+    <views:BaseContentPage.Content>
+        <StackLayout HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand"
+                     Orientation="Vertical"
+                     Spacing="0">
+            <ScrollView HorizontalOptions="FillAndExpand"
+                        Orientation="Horizontal"
+                        HorizontalScrollBarVisibility="Never">
+                <innercontrols:TabbedTitles HorizontalOptions="FillAndExpand"
+                                            Margin="{x:Static styles:Layouts.Margin}"
+                                            Titles="{Binding Titles}"
+                                            SelectedIndex="{Binding Source={x:Reference carousel}, Path=Position, Mode=TwoWay}"/>
+            </ScrollView>
+            <CarouselView x:Name="carousel" 
+                          HorizontalOptions="FillAndExpand"
+                          VerticalOptions="FillAndExpand"
+                          ItemsSource="{Binding Views}"
+                          IsSwipeEnabled="False">
+                <CarouselView.ItemTemplate>
+                    <templates:BookingTemplateSelector/>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
+        </StackLayout>
+    </views:BaseContentPage.Content>
+</views:BaseContentPage>

@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       mc:Ignorable="d"
+                       xmlns:views="clr-namespace:AlexPacientes.Views"
+                       xmlns:labels="clr-namespace:AlexPacientes.Labels"
+                       xmlns:styles="clr-namespace:AlexPacientes.Styles"
+                       xmlns:controls="clr-namespace:AlexPacientes.Controls"
+                       xmlns:extensions="clr-namespace:AlexPacientes.Extensions"
+                       xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+                       xmlns:behaviorspack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+                       xmlns:cells1="clr-namespace:AlexPacientes.Views.Notes.Cells"
+                       xmlns:cell="clr-namespace:AlexPacientes.Views.Settings.Cell"
+                       xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                       xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+                       xmlns:cell1="clr-namespace:AlexPacientes.Views.Settings.Payments.Cell"
+                       NavBarTitle="{x:Static labels:Labels.PaymentMethods}"
+                       NavBarTitleAlignment="Start"
+                       NavBarHideRightIcon="True"
+                       NavBarSize="Small"            
+                       NavBarLeftIconCommand="{Binding BackCommand}"  
+                       NeedsUserSession="{Binding RequireAuthentication}"
+                       RequestAuthenticationCommand="{Binding DisplayLoginPageCommand}"      
+                       x:Class="AlexPacientes.Views.Settings.Payments.PaymentMethodsList">
+    <views:BaseContentPage.Content>
+        <StackLayout Margin="0"
+                     Padding="0"
+                     Spacing="0">
+            <ListView HorizontalOptions="FillAndExpand"
+                      VerticalOptions="FillAndExpand"
+                      HasUnevenRows="True"
+                      BackgroundColor="White"
+                      SeparatorVisibility="None"
+                      ItemsSource="{Binding CreditCards}"
+                      VerticalScrollBarVisibility="Never">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <cell1:PaymentCell/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Behaviors>
+                    <behaviorspack:EventToCommandBehavior EventName="ItemTapped"
+                                                          EventArgsPropertyPath="Item"
+                                                          Command="{Binding SetDefaultCardCommand}" />
+                </ListView.Behaviors>
+            </ListView>
+            <Button HorizontalOptions="FillAndExpand"
+                    VerticalOptions="EndAndExpand"
+                    HeightRequest="50"
+                    Margin="{x:Static styles:Layouts.Margin}"
+                    Text="{x:Static labels:Labels.Add}"
+                    Command="{Binding DisplayAddCreditCardViewCommand}"/>
+        </StackLayout>
+    </views:BaseContentPage.Content>
+</views:BaseContentPage>

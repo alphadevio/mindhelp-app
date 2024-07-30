@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       mc:Ignorable="d"
+                       xmlns:views="clr-namespace:AlexPacientes.Views"
+                       xmlns:labels="clr-namespace:AlexPacientes.Labels"
+                       xmlns:styles="clr-namespace:AlexPacientes.Styles"
+                       xmlns:controls="clr-namespace:AlexPacientes.Controls"
+                       xmlns:extensions="clr-namespace:AlexPacientes.Extensions"
+                       xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+                       xmlns:behaviorspack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+                       xmlns:cells1="clr-namespace:AlexPacientes.Views.Notes.Cells"
+                       xmlns:cell="clr-namespace:AlexPacientes.Views.Settings.Cell"
+                       xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                       xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+                       NavBarTitle="{x:Static labels:Labels.Notes}"
+                       NavBarTitleAlignment="Start"
+                       NavBarHideRightIcon="True"
+                       NavBarSize="Small"                       
+                       NavBarHideLeftIcon="True"
+                       NeedsUserSession="{Binding RequireAuthentication}"
+                       RequestAuthenticationCommand="{Binding DisplayLoginPageCommand}"      
+                       x:Class="AlexPacientes.Views.Settings.SettingsView">
+    <views:BaseContentPage.Content>
+        <Grid Margin="0"
+              Padding="{x:Static styles:Layouts.Margin}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <forms:CachedImage HorizontalOptions="Start"
+                               VerticalOptions="Center"
+                               WidthRequest="{x:Static styles:Layouts.UserCardImage}"
+                               HeightRequest="{x:Static styles:Layouts.UserCardImage}"
+                               MinimumHeightRequest="{x:Static styles:Layouts.UserCardImage}"
+                               MinimumWidthRequest="{x:Static styles:Layouts.UserCardImage}"
+                               Margin="{x:Static styles:Layouts.Margin}"
+                               DownsampleToViewSize="True"
+                               Source="{Binding UserData.Image}"
+                               Aspect="AspectFill"
+                               Grid.Row="0"
+                               Grid.Column="0"
+                               Grid.RowSpan="2">
+                <forms:CachedImage.Transformations>
+                    <transformations:CircleTransformation />
+                </forms:CachedImage.Transformations>
+            </forms:CachedImage>
+            <controls:LabelDarkPrimary HorizontalOptions="Start"
+                                       FontAttributes="Bold"
+                                       Margin="0,16,0,0"
+                                       Text="{Binding UserData.Name}"
+                                       Grid.Row="0"
+                                       Grid.Column="1"/>
+            <controls:LabelDarkSecondary HorizontalOptions="Start"
+                                         FontAttributes="Bold"
+                                         Text="{Binding UserData.Email}"
+                                         Margin="0,0"
+                                         Grid.Row="1"
+                                         Grid.Column="1"/>
+            <ListView HorizontalOptions="FillAndExpand"
+                      VerticalOptions="FillAndExpand"
+                      HasUnevenRows="True"
+                      SeparatorVisibility="None"
+                      SelectionMode="None"
+                      ItemsSource="{Binding Settings}"
+                      Grid.Row="2"
+                      Grid.Column="0"
+                      BackgroundColor="White"
+                      Grid.ColumnSpan="2">
+                <ListView.Behaviors>
+                    <behaviorspack:EventToCommandBehavior Command="{Binding SelectedSettingCommand}"
+                                                          EventName="ItemTapped"
+                                                          EventArgsPropertyPath="Item"/>
+                </ListView.Behaviors>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <cell:SettingsCell/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </views:BaseContentPage.Content>
+</views:BaseContentPage>

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       mc:Ignorable="d"
+                       xmlns:views="clr-namespace:AlexPacientes.Views"
+                       xmlns:labels="clr-namespace:AlexPacientes.Labels"
+                       xmlns:styles="clr-namespace:AlexPacientes.Styles"
+                       NavBarTitle="{x:Static labels:Labels.DeleteAccountLabel}"
+                      NavBarTitleAlignment="Start"
+                      NavBarSize="Small"     
+                      NavBarHideRightIcon="True"     
+                      NavBarLeftIconCommand="{Binding BackCommand}"                     
+                       x:Class="AlexPacientes.Views.Settings.DeleteAccount.DeleteAccountView">
+    <views:BaseContentPage.Content>
+        <StackLayout HorizontalOptions="Fill"
+                     VerticalOptions="FillAndExpand"
+                     Margin="0">
+            <Label Text="{x:Static labels:Labels.DeleteAccountMessage}" 
+                   HorizontalOptions="Center"
+                   VerticalOptions="EndAndExpand"
+                   Margin="{x:Static styles:Layouts.Margin}"/>
+            <Button HorizontalOptions="FillAndExpand"
+                    VerticalOptions="StartAndExpand"
+                    Margin="{x:Static styles:Layouts.Margin}"
+                    HeightRequest="50"
+                    Text="{Static labels:Labels.Delete}"
+                    Command="{Binding DelteAccountCommand}"/>
+        </StackLayout>
+    </views:BaseContentPage.Content>
+</views:BaseContentPage>

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:cells="clr-namespace:AlexPacientes.Views.Booking.Cells"
+             xmlns:views="clr-namespace:AlexPacientes.Views"
+             xmlns:labels="clr-namespace:AlexPacientes.Labels"
+             xmlns:styles="clr-namespace:AlexPacientes.Styles"
+             xmlns:controls="clr-namespace:AlexPacientes.Controls"
+             xmlns:extensions="clr-namespace:AlexPacientes.Extensions"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             mc:Ignorable="d"
+             x:Class="AlexPacientes.Views.Booking.UpcomingBookingView">
+  <ContentView.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ListView HasUnevenRows="True"
+                      SeparatorVisibility="None"
+                      BackgroundColor="White"
+                      SelectionMode="None"
+                      CachingStrategy="RetainElement"
+                      IsPullToRefreshEnabled="True"                      
+                      RefreshCommand="{Binding RefreshCommand}"
+                      IsRefreshing="{Binding IsRefreshing}"
+                      ItemsSource="{Binding Bookings}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <cells:UpcomingBookingCell/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="{Static labels:Labels.NewAppointment}"
+                    HeightRequest="50"
+                    Command="{Binding GoToAppointmentsCommand}"
+                    Margin="{Static styles:Layouts.Margin}"
+                    Grid.Row="1"/>
+            <controls:LoadingView IsRunning="{Binding IsBusy}" Grid.Row="0"/>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       mc:Ignorable="d"
+                       xmlns:views="clr-namespace:AlexPacientes.Views"
+                       xmlns:labels="clr-namespace:AlexPacientes.Labels"
+                       xmlns:styles="clr-namespace:AlexPacientes.Styles"
+                       xmlns:controls="clr-namespace:AlexPacientes.Controls"
+                       xmlns:extensions="clr-namespace:AlexPacientes.Extensions"
+                       xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+                       xmlns:behaviorspack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+                       xmlns:cells1="clr-namespace:AlexPacientes.Views.Notes.Cells"
+                       xmlns:cell="clr-namespace:AlexPacientes.Views.Settings.Cell"
+                       xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                       xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+                       xmlns:cell1="clr-namespace:AlexPacientes.Views.Settings.Payments.Cell"
+                       xmlns:converters="clr-namespace:AlexPacientes.Converters"
+                       NavBarTitle="{x:Static labels:Labels.PaymentMethods}"
+                       NavBarTitleAlignment="Start"
+                       NavBarSize="Small"       
+                      NavBarHideRightIcon="True"     
+                      NavBarLeftIconCommand="{Binding BackCommand}"                        
+                       NeedsUserSession="{Binding RequireAuthentication}"
+                       RequestAuthenticationCommand="{Binding DisplayLoginPageCommand}"     
+                       x:Class="AlexPacientes.Views.Settings.Payments.AddCardPaymentMethodView">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:InvertedBooleanConverter x:Key="NegativeBool"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <views:BaseContentPage.Content>
+        <ScrollView HorizontalOptions="FillAndExpand">
+            <StackLayout Margin="{x:Static styles:Layouts.Margin}"
+                         Spacing="{x:Static styles:Layouts.Margin}"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand">
+                <StackLayout HorizontalOptions="FillAndExpand"
+                             VerticalOptions="Start"
+                             Spacing="0">
+                    <controls:LabelDarkHint FontAttributes="Bold"
+                                            TextColor="{x:Static styles:Colors.PrimaryColor}"
+                                            Text="{x:Static labels:Labels.Name}"/>
+                    <controls:CustomEntry HorizontalOptions="FillAndExpand"
+                                          Placeholder="{x:Static labels:Labels.Name}"
+                                          Text="{Binding Card.AccountHolder,Mode=TwoWay}"
+                                          BackgroundColor="White"
+                                          BorderColor="{x:Static styles:Colors.PrimaryColor}"
+                                          BorderStroke="1"
+                                          BorderRadius="0"
+                                          BorderType="Line"
+                                          IsEnabled="{Binding IsBussy, Converter={StaticResource NegativeBool}}"/>
+                </StackLayout>
+                <StackLayout HorizontalOptions="FillAndExpand"
+                             VerticalOptions="Start">
+                    <controls:LabelDarkHint FontAttributes="Bold"
+                                            TextColor="{x:Static styles:Colors.PrimaryColor}"
+                                            Text="{x:Static labels:Labels.CardNumber}"/>
+                    <controls:CustomEntry HorizontalOptions="FillAndExpand"
+                                          Placeholder="{x:Static labels:Labels.CardNumber}"
+                                          Text="{Binding Card.CardNumber,Mode=TwoWay}"
+                                          Keyboard="Numeric"
+                                          BackgroundColor="White"
+                                          BorderColor="{x:Static styles:Colors.PrimaryColor}"
+                                          BorderStroke="1"
+                                          BorderRadius="0"
+                                          BorderType="Line"
+                                          IsEnabled="{Binding IsBussy, Converter={StaticResource NegativeBool}}"/>
+                </StackLayout>
+                <StackLayout HorizontalOptions="FillAndExpand"
+                             VerticalOptions="Start"
+                             Spacing="0">
+                    <controls:LabelDarkHint FontAttributes="Bold"
+                                            TextColor="{x:Static styles:Colors.PrimaryColor}"
+                                            Text="{x:Static labels:Labels.CVV}"/>
+                    <controls:CustomEntry HorizontalOptions="FillAndExpand"
+                                          Placeholder="{x:Static labels:Labels.CVV}"
+                                          Text="{Binding Card.CVC,Mode=TwoWay}"
+                                          Keyboard="Numeric"
+                                          BackgroundColor="White"
+                                          BorderColor="{x:Static styles:Colors.PrimaryColor}"
+                                          BorderStroke="1"
+                                          BorderRadius="0"
+                                          BorderType="Line"
+                                          IsEnabled="{Binding IsBussy, Converter={StaticResource NegativeBool}}"/>
+                </StackLayout>
+                <StackLayout HorizontalOptions="FillAndExpand"
+                             VerticalOptions="Start"
+                             Spacing="0">
+                    <controls:LabelDarkHint FontAttributes="Bold"
+                                            TextColor="{x:Static styles:Colors.PrimaryColor}"
+                                            Text="{x:Static labels:Labels.ExpirationDate}"/>
+                    <StackLayout HorizontalOptions="FillAndExpand"
+                                 VerticalOptions="Center"
+                                 Orientation="Horizontal">
+                        <controls:CustomPicker Title="{x:Static labels:Labels.Month}"
+                                               HorizontalOptions="FillAndExpand"
+                                               x:Name="MonthPicker"                                                
+                                               BackgroundColor="White"
+                                               BorderColor="{x:Static styles:Colors.PrimaryColor}"
+                                               BorderStroke="1"
+                                               BorderRadius="0"      
+                                               Margin="5"
+                                               SelectedItem="{Binding Card.Month, Mode=TwoWay}"/>
+                        <controls:CustomPicker Title="{x:Static labels:Labels.Year}"
+                                               HorizontalOptions="FillAndExpand"
+                                               x:Name="YearPicker"            
+                                               Margin="5"
+                                               BackgroundColor="White"
+                                               BorderColor="{x:Static styles:Colors.PrimaryColor}"
+                                               BorderStroke="1"
+                                               BorderRadius="0"
+                                               SelectedItem="{Binding Card.Year, Mode=TwoWay}"/>
+                    </StackLayout>
+                </StackLayout>
+                <Button BackgroundColor="{x:Static styles:Colors.PrimaryColor}"
+                        TextColor="White"
+                        Text="{x:Static labels:Labels.Add}"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="EndAndExpand"
+                        Command="{Binding AddCreditCardCommand}"
+                        IsEnabled="{Binding IsBussy, Converter={StaticResource NegativeBool}}">
+                </Button>
+            </StackLayout>
+        </ScrollView>
+    </views:BaseContentPage.Content>
+</views:BaseContentPage>

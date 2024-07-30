@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns="http://xamarin.com/schemas/2014/forms"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:extensions="clr-namespace:AlexPacientes.Extensions" 
+                 xmlns:styles="clr-namespace:AlexPacientes.Styles" 
+                 xmlns:controls="clr-namespace:AlexPacientes.Controls" 
+                 xmlns:labels="clr-namespace:AlexPacientes.Labels" 
+                 xmlns:pluginCalendar="clr-namespace:Xamarin.Plugin.Calendar.Controls;assembly=Xamarin.Plugin.Calendar"
+                 x:Class="AlexPacientes.Views.Home.Popup.FiltersPopupView">
+    <ContentPage.Content>        
+        <StackLayout Padding="{extensions:Thickness Up={extensions:ScreenMarckup FullValue={x:Static styles:Layouts.DisplayYSizePX}, RequiredPercentage=10}}"
+                     Spacing="0"
+                     Margin="0">
+            <BoxView HorizontalOptions="Fill"
+                     VerticalOptions="Start"
+                     HeightRequest="50"
+                     Color="{x:Static styles:Colors.PrimaryBackgroundColor}">
+                <BoxView.CornerRadius >
+                    50,0,0,0
+                </BoxView.CornerRadius>
+            </BoxView>
+
+            <StackLayout HorizontalOptions="Fill"
+                         VerticalOptions="FillAndExpand"
+                         BackgroundColor="{x:Static styles:Colors.PrimaryBackgroundColor}"
+                         Padding="{x:Static styles:Layouts.Margin}">
+                <Grid HorizontalOptions="FillAndExpand"
+                      VerticalOptions="Start"
+                      Margin="0"
+                      Padding="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="6*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <controls:LabelDarkPrimary Text="{x:Static labels:Labels.Filters}"
+                                               TextColor="{x:Static styles:Colors.PrimaryColor}"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="CenterAndExpand"
+                                               VerticalTextAlignment="Start"
+                                               FontAttributes="Bold"
+                                               FontSize="{x:Static styles:Fonts.ExtraLargeSize}"
+                                               TranslationY="-10"
+                                               HorizontalTextAlignment="Center"
+                                               Grid.Row="0"
+                                               Grid.Column="0"
+                                               Grid.ColumnSpan="2"/>
+
+                    <controls:LabelDarkPrimary Text="+"
+                                               Rotation="45"
+                                               TextColor="{x:Static styles:Colors.CommonGrayLight}"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Start"
+                                               VerticalTextAlignment="Center"
+                                               FontAttributes="Bold"
+                                               FontSize="{x:Static styles:Fonts.ExtraExtraLargeSize}"
+                                               TranslationY="-10"
+                                               HorizontalTextAlignment="Center"
+                                               WidthRequest="35"
+                                               HeightRequest="35"
+                                               Grid.Row="0"
+                                               Grid.Column="1">
+                        <controls:LabelDarkPrimary.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                        </controls:LabelDarkPrimary.GestureRecognizers>
+                    </controls:LabelDarkPrimary>
+                </Grid>
+                <ScrollView HorizontalOptions="Fill"
+                            VerticalOptions="Fill"
+                            VerticalScrollBarVisibility="Never">
+
+                    <StackLayout HorizontalOptions="Fill"
+                                 VerticalOptions="FillAndExpand"
+                                 Margin="0">
+                        <controls:LabelDarkPrimary Text="{x:Static labels:Labels.Name}"
+                                                   TextColor="{x:Static styles:Colors.PrimaryColor}"
+                                                   HorizontalOptions="Start"
+                                                   VerticalOptions="Start"
+                                                   VerticalTextAlignment="Start"
+                                                   FontSize="{x:Static styles:Fonts.ExtraLargeSize}"
+                                                   HorizontalTextAlignment="Center"/>
+                        <controls:CustomEntry HorizontalOptions="FillAndExpand"
+                                              VerticalOptions="Start"
+                                              Placeholder="{x:Static labels:Labels.Name}"
+                                              Text="{Binding Name, Mode=TwoWay}"/>
+                        <controls:Divider HorizontalOptions="FillAndExpand"
+                                          TranslationY="-10"
+                                          VerticalOptions="Start"/>
+
+                        <controls:LabelDarkPrimary Text="{x:Static labels:Labels.Gender}"
+                                                   TextColor="{x:Static styles:Colors.PrimaryColor}"
+                                                   HorizontalOptions="Start"
+                                                   VerticalOptions="Start"
+                                                   VerticalTextAlignment="Start"
+                                                   FontSize="{x:Static styles:Fonts.ExtraLargeSize}"
+                                                   TranslationY="-10"
+                                                   HorizontalTextAlignment="Center"/>
+                        <StackLayout HorizontalOptions="FillAndExpand"
+                                     VerticalOptions="Start"
+                                     Orientation="Horizontal"
+                                     Margin="{extensions:Thickness Bottom={x:Static styles:Layouts.Margin}}">
+                            <CheckBox IsChecked="{Binding Female}"
+                                      HorizontalOptions="EndAndExpand"                              
+                                      VerticalOptions="Center"/>
+                            <controls:LabelDarkPrimary Text="{x:Static labels:Labels.Female}"
+                                                       HorizontalOptions="StartAndExpand"
+                                                       VerticalOptions="Center"
+                                                       HorizontalTextAlignment="Center"/>
+                            <CheckBox IsChecked="{Binding Male}"
+                                      HorizontalOptions="EndAndExpand"
+                                      VerticalOptions="Center"/>
+                            <controls:LabelDarkPrimary Text="{x:Static labels:Labels.Male}"
+                                                       HorizontalOptions="StartAndExpand"
+                                                       VerticalOptions="Center"
+                                                       HorizontalTextAlignment="Center"/>
+
+                        </StackLayout>
+
+                        <controls:LabelDarkPrimary Text="{x:Static labels:Labels.Disponibility}"
+                                                   TextColor="{x:Static styles:Colors.PrimaryColor}"
+                                                   FontSize="{x:Static styles:Fonts.ExtraLargeSize}"
+                                                   HorizontalOptions="StartAndExpand"
+                                                   VerticalOptions="Center"
+                                                   HorizontalTextAlignment="Center"/>
+                        <controls:LabelDarkPrimary Text="{x:Static labels:Labels.DateAndHour}"
+                                                   HorizontalOptions="StartAndExpand"
+                                                   VerticalOptions="Center"
+                                                   HorizontalTextAlignment="Center"/>
+                        <pluginCalendar:Calendar SelectedDate="{Binding SelectedDate}"
+                                                 CalendarSectionShown="True"
+                                                 FooterArrowVisible="False"
+                                                 ShowMonthPicker="True"
+                                                 ShowYearPicker="False"
+                                                 VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="FillAndExpand"/>
+                        <StackLayout HorizontalOptions="FillAndExpand"
+                                     VerticalOptions="Center"
+                                     Orientation="Horizontal">
+                            <StackLayout HorizontalOptions="FillAndExpand"
+                                         VerticalOptions="Center">
+
+                                <controls:LabelDarkPrimary Text="{x:Static labels:Labels.StartHour}"
+                                                   HorizontalOptions="StartAndExpand"
+                                                   VerticalOptions="Center"
+                                                   HorizontalTextAlignment="Center"/>
+                                <TimePicker HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="Center"                                       
+                                    Time="{Binding StartHour}"/>
+                            </StackLayout>
+                            <StackLayout HorizontalOptions="FillAndExpand"
+                                         VerticalOptions="Center">
+
+                                <controls:LabelDarkPrimary Text="{x:Static labels:Labels.EndHour}"
+                                                   HorizontalOptions="StartAndExpand"
+                                                   VerticalOptions="Center"
+                                                   HorizontalTextAlignment="Center"/>
+                                <TimePicker HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="Center"
+                                    Time="{Binding EndHour}"/>
+                            </StackLayout>
+                        </StackLayout>
+
+                    </StackLayout>
+                </ScrollView>
+
+                <Button HorizontalOptions="FillAndExpand"
+                        VerticalOptions="EndAndExpand"
+                        HeightRequest="50"
+                        Text="{x:Static labels:Labels.Search}"
+                        Command="{Binding SearchWithFiltersCommand}"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:PopupPage>

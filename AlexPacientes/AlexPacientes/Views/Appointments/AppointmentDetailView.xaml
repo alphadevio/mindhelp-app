@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       xmlns:views="clr-namespace:AlexPacientes.Views"
+                       xmlns:labels="clr-namespace:AlexPacientes.Labels"
+                       xmlns:styles="clr-namespace:AlexPacientes.Styles"
+                       xmlns:cells="clr-namespace:AlexPacientes.Views.Appointments.Cells"
+                       xmlns:controls="clr-namespace:AlexPacientes.Controls"
+                       xmlns:converters="clr-namespace:AlexPacientes.Converters"
+                       xmlns:extensions="clr-namespace:AlexPacientes.Extensions"
+                       xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                       xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+                       xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+                       mc:Ignorable="d"
+                       x:Class="AlexPacientes.Views.Appointments.AppointmentDetailView"
+                       NavBarTitle="{x:Static labels:Labels.AppointmentDetails}"
+                       NavBarLeftIconCommand="{Binding BackCommand}"
+                       NeedsUserSession="{Binding RequireAuthentication}"
+                       RequestAuthenticationCommand="{Binding DisplayLoginPageCommand}"         
+                       NavBarSize="Small">
+    <views:BaseContentPage.Resources>
+        <ResourceDictionary>
+            <converters:StringEmptyBooleanConverter x:Key="StringEmptyBooleanConverter"/>
+            <converters:DatetimeToHumanTextConverter x:Key="MonthDayDateTimeConverter" Parameter="MonthDay"/>
+            <converters:DatetimeToHumanTextConverter x:Key="TimeDateTimeConverter" Parameter="Hour"/>
+            <converters:InvertedBooleanConverter x:Key="InvertedBooleanConverter"/>
+        </ResourceDictionary>
+    </views:BaseContentPage.Resources>
+    <views:BaseContentPage.Content>
+        <ScrollView VerticalScrollBarVisibility="Never"
+                    VerticalOptions="FillAndExpand">
+            <StackLayout Orientation="Vertical" 
+                         VerticalOptions="FillAndExpand"
+                         Margin="{Static styles:Layouts.Margin}"
+                         Spacing="{extensions:ScreenMarckup FullValue={x:Static styles:Layouts.Margin}, RequiredPercentage=50}">
+                <!--Doctor details -->
+                <Grid RowSpacing="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ffimageloading:CachedImage HorizontalOptions="Center" 
+                                                VerticalOptions="Center"
+                                                WidthRequest="40"
+                                                HeightRequest="40"
+                                                Aspect="AspectFill"
+                                                Source="{Binding Doctor.ProfileImage}"
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                Grid.RowSpan="2">
+                        <ffimageloading:CachedImage.Transformations>
+                            <transformations:CircleTransformation />
+                        </ffimageloading:CachedImage.Transformations>
+                    </ffimageloading:CachedImage>
+                    <controls:LabelDarkPrimary Text="{Binding Doctor.Services[0].Name}"
+                                               TextColor="{Static styles:Colors.TextDarkSecondary}"
+                                               Grid.Row="0"
+                                               Grid.Column="1"/>
+                    <controls:LabelDarkPrimary Text="{Binding Doctor.Name}"
+                                               FontSize="{Static styles:Fonts.LargeSize}"
+                                               Grid.Row="1"
+                                               Grid.Column="1"/>
+                    <controls:LabelDarkSecondary Text="{Static labels:Labels.ConsultationType}"
+                                                 Margin="{extensions:Thickness Up={Static styles:Layouts.Margin}}"
+                                                 Grid.Row="2"
+                                                 Grid.Column="0"
+                                                 Grid.ColumnSpan="2"/>
+                    <controls:LabelDarkPrimary Text="{Binding Details.User.Doctor.CategoryName}"
+                                               TextColor="{Static styles:Colors.PrimaryColor}"
+                                               Grid.Row="3"
+                                               Grid.Column="0"
+                                               Grid.ColumnSpan="2"/>
+                </Grid>
+
+                <!-- Consultation date time -->
+                <controls:LabelDarkSecondary Text="{Static labels:Labels.ConsultationDateTime}"
+                                             Margin="{extensions:Thickness Up={Static styles:Layouts.Margin}}"/>
+                <controls:BorderFrame Margin="2,0">
+                    <StackLayout Orientation="Horizontal">
+                        <controls:SvgIconButton HorizontalOptions="EndAndExpand"
+                                                WidthRequest="{Static styles:Layouts.IconSizeCommon}"
+                                                HeightRequest="{Static styles:Layouts.IconSizeCommon}"
+                                                Source="{Static styles:Icons.Book}"
+                                                ColorToOverride="#000000"
+                                                OverrideColor="{Static styles:Colors.PrimaryColor}"/>
+                        <controls:LabelDarkPrimary VerticalOptions="CenterAndExpand"
+                                                   Text="{Binding StartTime, Converter={StaticResource MonthDayDateTimeConverter}}"/>
+                        <controls:DividerHorizontal HorizontalOptions="CenterAndExpand"
+                                                    VerticalOptions="FillAndExpand"
+                                                    Margin="0,1"/>
+                        <controls:SvgIconButton WidthRequest="{Static styles:Layouts.IconSizeCommon}"
+                                                HeightRequest="{Static styles:Layouts.IconSizeCommon}"
+                                                Source="{Static styles:Icons.Clock}"
+                                                ColorToOverride="#000000"
+                                                OverrideColor="{Static styles:Colors.PrimaryColor}"/>
+                        <controls:LabelDarkPrimary HorizontalOptions="StartAndExpand"
+                                                   VerticalOptions="CenterAndExpand"
+                                                   Text="{Binding StartTime, Converter={StaticResource TimeDateTimeConverter}}"/>
+                    </StackLayout>
+                </controls:BorderFrame>
+
+                <!-- Consultation includes -->
+                <controls:LabelDarkSecondary Text="{Static labels:Labels.ConsultationIncludes}"
+                                             Margin="{extensions:Thickness Up={Static styles:Layouts.Margin}}"/>
+                <controls:BorderFrame Margin="2,0">
+                    <Grid RowSpacing="{Static styles:Layouts.Margin}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <controls:SvgIconButton WidthRequest="{Static styles:Layouts.IconSizeCommon}"
+                                                HeightRequest="{Static styles:Layouts.IconSizeCommon}"
+                                                Source="{Static styles:Icons.Book}"
+                                                ColorToOverride="#000000"
+                                                OverrideColor="{Static styles:Colors.PrimaryColor}"
+                                                Grid.Row="0"
+                                                Grid.Column="0"/>
+                        <controls:SvgIconButton WidthRequest="{Static styles:Layouts.IconSizeCommon}"
+                                                HeightRequest="{Static styles:Layouts.IconSizeCommon}"
+                                                Source="{Static styles:Icons.Book}"
+                                                ColorToOverride="#000000"
+                                                OverrideColor="{Static styles:Colors.PrimaryColor}"
+                                                Grid.Row="1"
+                                                Grid.Column="0"/>
+                        <controls:LabelDarkPrimary VerticalOptions="Center"
+                                                   Text="{Static labels:Labels.HourVideoSession}"
+                                                   TextColor="{Static styles:Colors.TextDarkSecondary}"
+                                                   Grid.Row="0"
+                                                   Grid.Column="1"/>
+                        <controls:LabelDarkPrimary VerticalOptions="Center"
+                                                   Text="{Static labels:Labels.UnlimitedTextMessages}"
+                                                   TextColor="{Static styles:Colors.TextDarkSecondary}"
+                                                   Grid.Row="1"
+                                                   Grid.Column="1"/>
+                    </Grid>
+                </controls:BorderFrame>
+
+                <!-- Credit cards -->
+                <StackLayout HorizontalOptions="Fill"
+                             VerticalOptions="Center"
+                             Spacing="0"
+                             IsVisible="{Binding RequestPaymentMethod}">
+                    <controls:LabelDarkSecondary Text="{Static labels:Labels.PaymentMethods}"
+                                                 Margin="{extensions:Thickness Up={Static styles:Layouts.Margin}}"
+                                                 IsVisible="{Binding HasActiveSubscription, Converter={StaticResource InvertedBooleanConverter}}"/>
+                    <CollectionView HeightRequest="165"
+                                    VerticalOptions="Start"
+                                    ItemsSource="{Binding CreditCards}"
+                                    SelectionMode="Single"
+                                    BackgroundColor="Transparent"
+                                    SelectedItem="{Binding SelectedCreditCard}"
+                                    HorizontalScrollBarVisibility="Never"
+                                    IsVisible="{Binding HasActiveSubscription, Converter={StaticResource InvertedBooleanConverter}}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal"
+                                               ItemSpacing="{Static styles:Layouts.Margin}"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <cells:CreditCardCell />
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                        <CollectionView.EmptyView>
+                            <ContentView HorizontalOptions="FillAndExpand"
+                                         VerticalOptions="FillAndExpand">
+                                <controls:LabelDarkPrimary HorizontalOptions="CenterAndExpand"
+                                                           VerticalOptions="CenterAndExpand"
+                                                           HorizontalTextAlignment="Center">
+                                    <controls:LabelDarkPrimary.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Static labels:Labels.NoPaymentMethodsAvailable}"
+                                                  TextColor="{Static styles:Colors.TextDarkSecondary}"
+                                                  FontSize="{Static styles:Fonts.ExtraExtraLargeSize}"/>
+                                            <Span Text=" "
+                                                  FontSize="{Static styles:Fonts.ExtraExtraLargeSize}"/>
+                                            <Span Text="{Static labels:Labels.Add}"
+                                                  TextColor="{Static styles:Colors.PrimaryColor}"
+                                                  FontSize="{Static styles:Fonts.ExtraExtraLargeSize}"
+                                                  TextDecorations="Underline">
+                                                <Span.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding OpenPaymentViewCommand}"/>
+                                                </Span.GestureRecognizers>
+                                            </Span>
+                                        </FormattedString>
+                                    </controls:LabelDarkPrimary.FormattedText>
+                                </controls:LabelDarkPrimary>
+                            </ContentView>
+                        </CollectionView.EmptyView>
+                    </CollectionView>
+                </StackLayout>
+
+                <!-- Code -->
+                <controls:LabelDarkSecondary Text="{Static labels:Labels.ApplyCoupon}"
+                                             Margin="{extensions:Thickness Up={Static styles:Layouts.Margin}}"
+                                             IsVisible="{Binding HasActiveSubscription, Converter={StaticResource InvertedBooleanConverter}}"/>
+                <controls:BorderFrame Margin="2,0"
+                                      IsVisible="{Binding HasActiveSubscription, Converter={StaticResource InvertedBooleanConverter}}">
+                    <StackLayout Orientation="Horizontal">
+                        <controls:CustomEntry HorizontalOptions="FillAndExpand" 
+                                              Placeholder="{Static labels:Labels.EnterCoupon}"
+                                              Text="{Binding Coupon, Mode=TwoWay}"
+                                              BorderType="None"/>   
+                        <controls:LabelDarkSecondary Text="{Static labels:Labels.Apply}"
+                                                     TextColor="{Static styles:Colors.PrimaryColor}"
+                                                     VerticalOptions="Center"
+                                                     IsVisible="{Binding Coupon, Converter={StaticResource StringEmptyBooleanConverter}}">
+                            <controls:LabelDarkSecondary.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ApplyCouponCommand}"/>
+                            </controls:LabelDarkSecondary.GestureRecognizers>
+                        </controls:LabelDarkSecondary>
+                    </StackLayout>
+                </controls:BorderFrame>
+                <StackLayout Orientation="Horizontal">
+                    <controls:LabelDarkHint HorizontalOptions="FillAndExpand"
+                                            Text="{Binding CouponStatus}"
+                                            TextColor="{Binding CouponStatusColor}"/>
+                    <controls:LabelDarkHint Text="{Static labels:Labels.Remove}"
+                                            TextColor="Red"
+                                            IsVisible="{Binding IsCouponValid}">
+                        <controls:LabelDarkHint.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding RemoveCouponCommand}"/>
+                        </controls:LabelDarkHint.GestureRecognizers>
+                    </controls:LabelDarkHint>
+                </StackLayout>
+                
+                <!-- Total -->
+                <Grid RowSpacing="{Static styles:Layouts.Margin}"
+                      Margin="{extensions:Thickness Up={Static styles:Layouts.Margin}}"
+                      IsVisible="{Binding HasActiveSubscription, Converter={StaticResource InvertedBooleanConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <controls:LabelDarkPrimary Text="{Static labels:Labels.TotalConsultationFee}"
+                                               Grid.Row="0"
+                                               Grid.Column="0"/>
+                    <controls:LabelDarkPrimary Text="{Binding Doctor.Services[0].Cost, StringFormat={Static labels:Labels.PriceFormat}}"
+                                               Grid.Row="0"
+                                               Grid.Column="1"/>
+                    <controls:LabelDarkPrimary Text="{Static labels:Labels.Promotion}"
+                                               TextColor="{Static styles:Colors.PrimaryColor}"
+                                               IsVisible="{Binding IsCouponValid}"
+                                               Grid.Row="1"
+                                               Grid.Column="0"/>
+                    <controls:LabelDarkPrimary Text="{Binding Discount, StringFormat={Static labels:Labels.PriceFormat}}"
+                                               TextColor="{Static styles:Colors.PrimaryColor}"
+                                               IsVisible="{Binding IsCouponValid}"
+                                               Grid.Row="1"
+                                               Grid.Column="1"/>
+                    <controls:Divider Margin="0"
+                                      Grid.Row="2"
+                                      Grid.Column="0"
+                                      Grid.ColumnSpan="2"/>
+                    <controls:LabelDarkPrimary Text="{Static labels:Labels.Total}"
+                                               Grid.Row="3"
+                                               Grid.Column="0"/>
+                    <controls:LabelDarkPrimary Text="{Binding GrandTotal, StringFormat={Static labels:Labels.PriceFormat}}"
+                                               Grid.Row="3"
+                                               Grid.Column="1"/>
+                    <controls:LabelDarkPrimary Text="{Static labels:Labels.TotalSavings}"
+                                               TextColor="{Static styles:Colors.PrimaryColor}"
+                                               IsVisible="{Binding IsCouponValid}"
+                                               Grid.Row="4"
+                                               Grid.Column="0"/>
+                    <controls:LabelDarkPrimary Text="{Binding Discount, StringFormat={Static labels:Labels.PriceFormat}}"
+                                               TextColor="{Static styles:Colors.PrimaryColor}"
+                                               IsVisible="{Binding IsCouponValid}"
+                                               Grid.Row="4"
+                                               Grid.Column="1"/>
+                </Grid>
+
+                <Button HorizontalOptions="FillAndExpand"
+                        Text="{Static labels:Labels.PlaceRequest}"
+                        Command="{Binding PlaceAppointmentCommand}"
+                        Margin="{extensions:Thickness Up={Static styles:Layouts.Margin}, Bottom={Static styles:Layouts.Margin}}"/>
+            </StackLayout>
+        </ScrollView>
+    </views:BaseContentPage.Content>
+</views:BaseContentPage>

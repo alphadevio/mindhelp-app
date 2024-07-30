@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       mc:Ignorable="d"
+                       xmlns:views="clr-namespace:AlexPacientes.Views"
+                       xmlns:labels="clr-namespace:AlexPacientes.Labels"
+                       xmlns:styles="clr-namespace:AlexPacientes.Styles"
+                       xmlns:controls="clr-namespace:AlexPacientes.Controls"
+                       xmlns:extensions="clr-namespace:AlexPacientes.Extensions"
+                       xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+                       xmlns:behaviorspack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+                       xmlns:cells="clr-namespace:AlexPacientes.Views.Chat.Cells"
+                       NavBarTitle="{x:Static labels:Labels.Chat}"
+                       NavBarTitleAlignment="Start"
+                       NavBarHideRightIcon="True"
+                       NavBarSize="Small"         
+                       NavBarLeftIconCommand="{Binding BackCommand}"              
+                       x:Class="AlexPacientes.Views.Chat.ChatView">
+    <views:BaseContentPage.Content>
+        <Grid HorizontalOptions="FillAndExpand"
+              VerticalOptions="FillAndExpand"
+              Margin="0"
+              Padding="0">
+            <StackLayout Margin="0"
+                     Padding="0"
+                     Spacing="0">
+                <ListView HorizontalOptions="FillAndExpand"
+                      VerticalOptions="FillAndExpand"
+                      HasUnevenRows="True"
+                      SeparatorVisibility="None"
+                      SelectionMode="None"
+                      BackgroundColor="White"
+                      ItemsSource="{Binding Messages}">
+                    <ListView.Behaviors>
+                        <behaviorspack:EventToCommandBehavior Command="{Binding ItemSelectedCommand}"
+                                                              EventName="ItemTapped"
+                                                              EventArgsPropertyPath="Item"/>
+                    </ListView.Behaviors>
+                    <ListView.ItemTemplate>
+                        <cells:MessageDataTemplateSelector/>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Grid HorizontalOptions="FillAndExpand"
+                  VerticalOptions="EndAndExpand"
+                  Margin="{x:Static styles:Layouts.Margin}"
+                  ColumnSpacing="{x:Static styles:Layouts.Margin}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="{x:Static styles:Layouts.IconSizeSmall}"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!--File source action sheet-->
+                    <!--<Image WidthRequest="{x:Static styles:Layouts.IconSizeSmall}"
+                       HeightRequest="{x:Static styles:Layouts.IconSizeSmall}"
+                       MinimumHeightRequest="{x:Static styles:Layouts.IconSizeSmall}"
+                       MinimumWidthRequest="{x:Static styles:Layouts.IconSizeSmall}"
+                       Source="{x:Static styles:Icons.AddItemGreen}"
+                       Grid.Column="0"
+                       Grid.Row="0">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding DisplayActionSheetCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>-->
+
+                    <controls:CustomEntry HorizontalOptions="FillAndExpand"
+                                          VerticalOptions="Center"
+                                          Text="{Binding Message, Mode=TwoWay}"
+                                          BackgroundColor="{x:Static styles:Colors.CustomEntryBackground}"
+                                          BorderColor="{x:Static styles:Colors.Divider}"
+                                          BorderStroke="1"
+                                          BorderRadius="100"
+                                          BorderType="Frame"
+                                          Placeholder="{x:Static labels:Labels.WriteMessagePlaceholder}"
+                                          Grid.Column="0"
+                                          IsEnabled="{Binding IsActive}"
+                                          Grid.ColumnSpan="2"
+                                          Grid.Row="0"/>
+
+                    <Image WidthRequest="{x:Static styles:Layouts.IconSizeSmall}"
+                           HeightRequest="{x:Static styles:Layouts.IconSizeSmall}"
+                           MinimumHeightRequest="{x:Static styles:Layouts.IconSizeSmall}"
+                           MinimumWidthRequest="{x:Static styles:Layouts.IconSizeSmall}"
+                           HorizontalOptions="EndAndExpand"
+                           Margin="0,0,8,0"
+                           Source="{x:Static styles:Icons.Send}"
+                           Grid.Column="1"
+                           Grid.Row="0">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SendMessageCommand}"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                </Grid>
+            </StackLayout>
+        </Grid>
+    </views:BaseContentPage.Content>
+</views:BaseContentPage>

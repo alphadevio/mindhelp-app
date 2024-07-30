@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:AlexPacientes.Controls"
+             xmlns:styles="clr-namespace:AlexPacientes.Styles"
+             xmlns:labels="clr-namespace:AlexPacientes.Labels"
+             mc:Ignorable="d"
+             HorizontalOptions="FillAndExpand"
+             VerticalOptions="FillAndExpand"
+             Margin="0"
+             Padding="{x:Static styles:Layouts.Margin}"
+             BackgroundColor="{x:Static styles:Colors.PopupBackground}"
+             x:Class="AlexPacientes.Controls.LoginToMindhelpBanner">
+  <ContentView.Content>
+        <StackLayout HorizontalOptions="FillAndExpand"
+                     VerticalOptions="FillAndExpand"
+                     Spacing="{x:Static styles:Layouts.DoubleMargin}">
+            <controls:SvgIconButton Source="{x:Static styles:Icons.LogoGreen}"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="EndAndExpand"
+                                    WidthRequest="50"
+                                    HeightRequest="50"
+                                    InputTransparent="True"/>
+            <StackLayout HorizontalOptions="Center"
+                         VerticalOptions="Center">
+                <controls:LabelDarkPrimary HorizontalOptions="CenterAndExpand"
+                                           VerticalOptions="Center"
+                                           HorizontalTextAlignment="Center"
+                                           VerticalTextAlignment="Center"
+                                           Text="{x:Static labels:Labels.LoginToMindhelp}"/>
+                <controls:LabelDarkHint HorizontalOptions="CenterAndExpand"
+                                        VerticalOptions="Center"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{x:Static labels:Labels.BeBetterWithOurSpecialist}"/>
+            </StackLayout>
+            <Button HorizontalOptions="FillAndExpand"
+                    x:Name="GoToLoginButton"
+                    VerticalOptions="StartAndExpand"
+                    HeightRequest="50"
+                    Text="{x:Static labels:Labels.LoginNow}"/>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

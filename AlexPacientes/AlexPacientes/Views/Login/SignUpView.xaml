@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       xmlns:views="clr-namespace:AlexPacientes.Views"
+                       xmlns:labels="clr-namespace:AlexPacientes.Labels"
+                       xmlns:styles="clr-namespace:AlexPacientes.Styles"
+                       xmlns:controls="clr-namespace:AlexPacientes.Controls"
+                       xmlns:extensions="clr-namespace:AlexPacientes.Extensions"
+                       xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+                       xmlns:sys="clr-namespace:System;assembly=netstandard"
+                       mc:Ignorable="d"
+                       x:Class="AlexPacientes.Views.Login.SignUpView"
+                       NavBarTitle="{x:Static labels:Labels.SignUp}"
+                       NavBarTitleAlignment="Center"
+                       NavBarHideRightIcon="True"
+                       NavBarSize="Small"
+                       NavBarLeftIconCommand="{Binding BackCommand}">
+    <views:BaseContentPage.Content>
+        <ScrollView Orientation="Vertical"
+                    VerticalScrollBarVisibility="Never">
+            <Grid Padding="{x:Static styles:Layouts.Margin}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <svg:SvgCachedImage WidthRequest="80"
+                                    HeightRequest="80"
+                                    HorizontalOptions="CenterAndExpand"
+                                    Source="{x:Static styles:Icons.LogoGreen}"
+                                    Margin="{extensions:Thickness Up={x:Static styles:Layouts.Margin}}"
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="2"/>
+                <controls:FloatLabelCustomEntry Placeholder="{x:Static labels:Labels.Name}"
+                                                Text="{Binding Profile.FirstName, Mode=OneWayToSource}"
+                                                BorderType="Line"
+                                                Grid.Row="1"
+                                                Grid.Column="0"/>
+                <controls:FloatLabelCustomEntry Placeholder="{x:Static labels:Labels.Lastname}"
+                                                Text="{Binding Profile.LastName, Mode=OneWayToSource}"
+                                                BorderType="Line"
+                                                Grid.Row="1"
+                                                Grid.Column="1"/>
+                <controls:FloatLabelCustomEntry Placeholder="{x:Static labels:Labels.Email}"
+                                                Text="{Binding Profile.Email, Mode=OneWayToSource}"
+                                                BorderType="Line"
+                                                Grid.Row="2"
+                                                Grid.Column="0"
+                                                Grid.ColumnSpan="2"/>
+                <controls:FloatLabelCustomEntry Placeholder="{x:Static labels:Labels.Password}"
+                                                Text="{Binding Profile.Password, Mode=OneWayToSource}"
+                                                BorderType="Line"
+                                                IsPassword="True"
+                                                Grid.Row="3"
+                                                Grid.Column="0"
+                                                Grid.ColumnSpan="2"/>
+                <controls:FloatLabelCustomEntry Placeholder="{x:Static labels:Labels.Phone}"
+                                                Text="{Binding Profile.PhoneNumber, Mode=OneWayToSource}"
+                                                BorderType="Line"
+                                                Grid.Row="4"
+                                                Grid.Column="0"/>
+                <controls:FloatLabelCustomPicker Title="{x:Static labels:Labels.Country}"
+                                                 FontSize="{x:Static styles:Fonts.MediumSize}"
+                                                 SelectedItem="{Binding Profile.Country, Mode=OneWayToSource}"
+                                                 Grid.Row="4"
+                                                 Grid.Column="1">
+                    <controls:FloatLabelCustomPicker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>México</x:String>
+                        </x:Array>
+                    </controls:FloatLabelCustomPicker.ItemsSource>
+                </controls:FloatLabelCustomPicker>
+                <DatePicker Grid.Row="5"
+                            Grid.Column="0"
+                            BackgroundColor="Transparent"
+                            TextColor="Black"
+                            Date="{Binding Profile.BirthdayDateTime, Mode=OneWayToSource}"
+                            MaximumDate="{x:Static sys:DateTime.Now}"/>
+                <controls:FloatLabelCustomPicker Title="{x:Static labels:Labels.Gender}"
+                                                 FontSize="{x:Static styles:Fonts.MediumSize}"
+                                                  SelectedItem="{Binding Profile.Gender, Mode=OneWayToSource}"
+                                                 Grid.Row="5"
+                                                 Grid.Column="1">
+                    <controls:FloatLabelCustomPicker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Masculino</x:String>
+                            <x:String>Femenino</x:String>
+                        </x:Array>
+                    </controls:FloatLabelCustomPicker.ItemsSource>
+                </controls:FloatLabelCustomPicker>
+                <Button HorizontalOptions="Fill"
+                        HeightRequest="50"
+                        Text="{Static labels:Labels.SignUp}"
+                        Margin="{extensions:Thickness Up={x:Static styles:Layouts.Margin}}"
+                        Command="{Binding SignUpCommand}"
+                        Grid.Row="6"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"/>
+                <!--<StackLayout HorizontalOptions="Center"
+                         VerticalOptions="End"
+                         Orientation="Horizontal"
+                         Grid.Row="6"
+                         Grid.Column="0"
+                         Grid.ColumnSpan="2">
+                    <CheckBox VerticalOptions="CenterAndExpand" 
+                          Color="{x:Static styles:Colors.PrimaryColor}"
+                          IsChecked="{Binding KeepLoggedIn}"/>
+                    <controls:LabelDarkSecondary VerticalOptions="CenterAndExpand"
+                                             Text="{x:Static labels:Labels.KeepLoggedIn}"/>
+                </StackLayout>-->
+                <controls:LabelDarkPrimary HorizontalOptions="Center"
+                                           Margin="{extensions:Thickness Up={x:Static styles:Layouts.Margin}, Bottom={x:Static styles:Layouts.Margin}}"
+                                           Grid.Row="7"
+                                           Grid.Column="0"
+                                           Grid.ColumnSpan="2">
+                    <controls:LabelDarkPrimary.FormattedText>
+                        <FormattedString>
+                            <Span Text="{x:Static labels:Labels.AccountQuestionPositive}"/>
+                            <Span Text=" "/>
+                            <Span Text="{x:Static labels:Labels.Login}"
+                                  TextColor="{x:Static styles:Colors.PrimaryColor}">
+                                <Span.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding SignInCommand}"/>
+                                </Span.GestureRecognizers>
+                            </Span>
+                        </FormattedString>
+                    </controls:LabelDarkPrimary.FormattedText>
+                </controls:LabelDarkPrimary>
+            </Grid>
+        </ScrollView>
+    </views:BaseContentPage.Content>
+</views:BaseContentPage>

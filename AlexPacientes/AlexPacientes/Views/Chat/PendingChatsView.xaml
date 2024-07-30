@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       mc:Ignorable="d"
+                       xmlns:views="clr-namespace:AlexPacientes.Views"
+                       xmlns:labels="clr-namespace:AlexPacientes.Labels"
+                       xmlns:styles="clr-namespace:AlexPacientes.Styles"
+                       xmlns:behaviorspack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+                       xmlns:cells="clr-namespace:AlexPacientes.Views.Chat.Cells"
+                       NavBarTitle="{x:Static labels:Labels.Chats}"
+                       NavBarTitleAlignment="Start"
+                       NavBarHideLeftIcon="True"
+                       NavBarHideRightIcon="True"
+                       NeedsUserSession="{Binding RequireAuthentication}"
+                       RequestAuthenticationCommand="{Binding DisplayLoginPageCommand}"                       
+                       NavBarSize="Small"
+                       x:Class="AlexPacientes.Views.Chat.PendingChatsView">
+    
+    <views:BaseContentPage.Content>
+        <ListView HorizontalOptions="FillAndExpand"
+                  VerticalOptions="FillAndExpand"
+                  HasUnevenRows="True"
+                  SeparatorColor="{x:Static styles:Colors.Divider}"
+                  SelectionMode="None"
+                  BackgroundColor="White"
+                  IsPullToRefreshEnabled="true"
+                  RefreshCommand="{Binding PullToRefreshCommand}"
+                  IsRefreshing="{Binding IsRefreshing}"
+                  ItemsSource="{Binding PendingChats}">
+            <ListView.Behaviors>
+                <behaviorspack:EventToCommandBehavior Command="{Binding ItemSelectedCommand}"
+                                                      EventName="ItemTapped"
+                                                      EventArgsPropertyPath="Item"/>
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <cells:PendingChatCell/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </views:BaseContentPage.Content>
+</views:BaseContentPage>

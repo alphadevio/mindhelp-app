@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       xmlns:views="clr-namespace:AlexPacientes.Views"
+                       xmlns:labels="clr-namespace:AlexPacientes.Labels"
+                       xmlns:styles="clr-namespace:AlexPacientes.Styles"
+                       xmlns:controls="clr-namespace:AlexPacientes.Controls"
+                       xmlns:extensions="clr-namespace:AlexPacientes.Extensions"
+                       xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+                       xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                       xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+                       mc:Ignorable="d"
+                       x:Class="AlexPacientes.Views.Settings.EditProfileView"
+                       NavBarTitle="{x:Static labels:Labels.Profile}"
+                       NavBarTitleAlignment="Start"
+                       NavBarHideRightIcon="True"
+                       NavBarSize="Small"
+                       NavBarLeftIconCommand="{Binding BackCommand}">
+    <views:BaseContentPage.Content>
+        <ScrollView>
+            <Grid Padding="{x:Static styles:Layouts.Margin}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <ffimageloading:CachedImage WidthRequest="140"
+                                            HeightRequest="140"
+                                            HorizontalOptions="CenterAndExpand"
+                                            Source="{Binding ProfileData.ProfileImageSource}"
+                                            LoadingPlaceholder="{x:Static styles:Icons.MindPlaceholder}"
+                                            ErrorPlaceholder="{x:Static styles:Icons.MindPlaceholder}"
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Grid.ColumnSpan="2">
+                    <ffimageloading:CachedImage.Transformations>
+                        <transformations:CircleTransformation />
+                    </ffimageloading:CachedImage.Transformations>
+                    <ffimageloading:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ChangePhotoCommand}"/>
+                    </ffimageloading:CachedImage.GestureRecognizers>
+                </ffimageloading:CachedImage>
+                <controls:FloatLabelCustomEntry Placeholder="{x:Static labels:Labels.Name}"
+                                                Text="{Binding ProfileData.FirstName, Mode=TwoWay}"
+                                                BorderType="Line"
+                                                Grid.Row="1"
+                                                Grid.Column="0"/>
+                <controls:FloatLabelCustomEntry Placeholder="{x:Static labels:Labels.Lastname}"
+                                                Text="{Binding ProfileData.LastName, Mode=TwoWay}"
+                                                BorderType="Line"
+                                                Grid.Row="1"
+                                                Grid.Column="1"/>
+                <controls:FloatLabelCustomEntry Placeholder="{x:Static labels:Labels.Email}"
+                                                Text="{Binding ProfileData.Email, Mode=TwoWay}"
+                                                IsEnabled="False"
+                                                BorderType="Line"
+                                                Grid.Row="2"
+                                                Grid.Column="0"
+                                                Grid.ColumnSpan="2"/>
+                <controls:FloatLabelCustomEntry Placeholder="{x:Static labels:Labels.Phone}"
+                                                Text="{Binding ProfileData.PhoneNumber, Mode=TwoWay}"
+                                                BorderType="Line"
+                                                Grid.Row="3"
+                                                Grid.Column="0"/>
+                <controls:FloatLabelCustomPicker Title="{x:Static labels:Labels.Country}"
+                                                 FontSize="{x:Static styles:Fonts.MediumSize}"
+                                                 BackgroundColor="White"
+                                                 SelectedItem="{Binding ProfileData.Country, Mode=TwoWay}"
+                                                 Grid.Row="3"
+                                                 Grid.Column="1">
+                    <controls:FloatLabelCustomPicker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>México</x:String>
+                        </x:Array>
+                    </controls:FloatLabelCustomPicker.ItemsSource>
+                </controls:FloatLabelCustomPicker>
+                <DatePicker Date="{Binding ProfileData.BirthdayDateTime}"
+                            Format="dd/MM/yyyy"
+                            BackgroundColor="White"
+                            TextColor="Black"
+                            HeightRequest="45"
+                            Grid.Row="4"
+                            Grid.Column="0"/>
+                <controls:FloatLabelCustomPicker Title="{x:Static labels:Labels.Gender}"
+                                                 SelectedItem="{Binding ProfileData.Gender}"
+                                                 FontSize="{x:Static styles:Fonts.MediumSize}"
+                                                 BorderColor="Transparent"
+                                                 BackgroundColor="White"
+                                                 Grid.Row="4"
+                                                 Grid.Column="1">
+                    <controls:FloatLabelCustomPicker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>Masculino</x:String>
+                            <x:String>Femenino</x:String>
+                        </x:Array>
+                    </controls:FloatLabelCustomPicker.ItemsSource>
+                </controls:FloatLabelCustomPicker>
+                <Button HorizontalOptions="Fill"
+                        HeightRequest="50"
+                        Text="{Static labels:Labels.Save}"
+                        Margin="{extensions:Thickness Up={x:Static styles:Layouts.Margin}}"
+                        Command="{Binding SaveCommand}"
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"/>
+            </Grid>
+        </ScrollView>
+    </views:BaseContentPage.Content>
+</views:BaseContentPage>

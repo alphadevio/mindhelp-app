@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       xmlns:views="clr-namespace:AlexPacientes.Views"
+                       xmlns:labels="clr-namespace:AlexPacientes.Labels"
+                       xmlns:styles="clr-namespace:AlexPacientes.Styles"
+                       xmlns:controls="clr-namespace:AlexPacientes.Controls"
+                       xmlns:cells="clr-namespace:AlexPacientes.Views.Home.Cells"
+                       xmlns:extensions="clr-namespace:AlexPacientes.Extensions"
+                       xmlns:converters="clr-namespace:AlexPacientes.Converters"
+                       xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                       xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+                       xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+                       xmlns:pluginCalendar="clr-namespace:Xamarin.Plugin.Calendar.Controls;assembly=Xamarin.Plugin.Calendar" xmlns:cells1="clr-namespace:AlexPacientes.Views.Appointments.Cells"
+                       mc:Ignorable="d"
+                       x:Class="AlexPacientes.Views.Home.DoctorView"
+                       NavBarSize="Medium"
+                       NavBarTitle=""
+                       NavBarLeftIconCommand="{Binding BackCommand}">
+    <views:BaseContentPage.Resources>
+        <converters:DatetimeToHumanTextConverter x:Key="AgeConverter" Parameter="Age" InputType="UnixTimeMillisecond"/>
+    </views:BaseContentPage.Resources>
+    <views:BaseContentPage.Content>
+        <StackLayout HorizontalOptions="Fill"
+                     VerticalOptions="Start"
+                     Spacing="0"
+                     TranslationY="-46">
+            <!-- Doctor header -->
+            <Grid HorizontalOptions="FillAndExpand"
+                  RowSpacing="0"
+                  ColumnSpacing="8"
+                  Margin="{extensions:Thickness Left={x:Static styles:Layouts.Margin}, Right={x:Static styles:Layouts.Margin}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <ffimageloading:CachedImage HorizontalOptions="Center"
+                                            VerticalOptions="Center"
+                                            WidthRequest="80"
+                                            HeightRequest="80"
+                                            Source="{Binding Doctor.ProfileImage}"
+                                            Aspect="AspectFill"
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Grid.RowSpan="3">
+                    <ffimageloading:CachedImage.Transformations>
+                        <transformations:CircleTransformation/>
+                    </ffimageloading:CachedImage.Transformations>
+                </ffimageloading:CachedImage>
+                <controls:LabelDarkPrimary VerticalOptions="End"
+                                           VerticalTextAlignment="End"
+                                           Text="{Binding Doctor.Name}"
+                                           TextColor="White"
+                                           FontSize="{x:Static styles:Fonts.ExtraLargeSize}"
+                                           Grid.Row="0"
+                                           Grid.Column="1"
+                                           Grid.ColumnSpan="1"/>
+                <controls:LabelDarkPrimary VerticalOptions="End"
+                                           Margin="{extensions:Thickness Up={extensions:ScreenMarckup FullValue={x:Static styles:Layouts.Margin}, RequiredPercentage=100}}"
+                                           Text="{Binding Doctor.Services[0].Name}"
+                                           TextColor="{x:Static styles:Colors.TextDarkSecondary}"
+                                           FontSize="{x:Static styles:Fonts.LargeSize}"
+                                           Grid.Row="1"
+                                           Grid.Column="1"/>
+                <controls:RateLabel VerticalOptions="Start"
+                                    Margin="{extensions:Thickness Up={extensions:ScreenMarckup FullValue={x:Static styles:Layouts.Margin}, RequiredPercentage=100}}"
+                                    Rate="{Binding Doctor.Doctor.TotalStar}"
+                                    Grid.Row="1"
+                                    Grid.Column="2"/>
+                <controls:LabelDarkSecondary Text="{Binding Doctor.Birthday, Converter={StaticResource AgeConverter}}"
+                                             HorizontalOptions="Start"
+                                             Grid.Row="2"
+                                             Grid.Column="1"/>
+                <controls:LabelDarkSecondary Text="{Binding AvailableDatesTitle}"
+                                             HorizontalOptions="End"
+                                             Grid.Row="2"
+                                             Grid.Column="1"
+                                             Grid.ColumnSpan="2"/>
+                <ffimageloading:CachedImage HorizontalOptions="Center"
+                                            VerticalOptions="Center"
+                                            Source="{x:Static styles:Icons.Icon_List}"
+                                            WidthRequest="30"
+                                            HeightRequest="30"
+                                            Grid.Row="4"
+                                            Grid.RowSpan="2"
+                                            Grid.Column="0">
+                    <ffimageloading:CachedImage.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding }"/>
+                    </ffimageloading:CachedImage.GestureRecognizers>
+                </ffimageloading:CachedImage>
+                
+                <ffimageloading:CachedImage HorizontalOptions="Start"
+                                            VerticalOptions="Center"
+                                            Source="{x:Static styles:Icons.Icon_Phone}"
+                                            WidthRequest="20"
+                                            HeightRequest="20"
+                                            Margin="{extensions:Thickness Bottom={extensions:ScreenMarckup FullValue={x:Static styles:Layouts.Margin}, RequiredPercentage=25}}"
+                                            Grid.Row="4"
+                                            Grid.Column="1"/>
+                <controls:LabelDarkSecondary Text="{Binding Doctor.Phone}"
+                                             HorizontalOptions="Start"
+                                             VerticalOptions="Center"
+                                             Grid.Row="4"
+                                             Margin="{extensions:Thickness Left={extensions:ScreenMarckup FullValue={x:Static styles:Layouts.Margin}, AddValueToResult=25, RequiredPercentage=100}}"
+                                             Grid.Column="1"/>
+                <ffimageloading:CachedImage HorizontalOptions="Start"
+                                            VerticalOptions="Center"
+                                            Source="{x:Static styles:Icons.Icon_Arroba}"
+                                            WidthRequest="20"
+                                            HeightRequest="20"
+                                            Grid.Row="5"
+                                            Grid.Column="1"/>
+
+                <controls:LabelDarkSecondary Text="{Binding Doctor.Email}"
+                                             HorizontalOptions="Start"
+                                             VerticalOptions="Center"
+                                             Grid.Row="5"
+                                             Margin="{extensions:Thickness Left={extensions:ScreenMarckup FullValue={x:Static styles:Layouts.Margin}, AddValueToResult=25, RequiredPercentage=100}}"
+                                             Grid.Column="1"/>
+
+                <controls:Divider HorizontalOptions="Fill"
+                                  Color="{x:Static styles:Colors.PrimaryColor}"
+                                  VerticalOptions="End"
+                                  Margin="0,3,0,0"
+                                  Grid.Row="6"
+                                  Grid.Column="0"
+                                  Grid.ColumnSpan="3"/>
+            </Grid>
+
+            <!-- Feedbacks and about -->
+            <ListView VerticalOptions="FillAndExpand"
+                      HasUnevenRows="True"
+                      SeparatorVisibility="None"
+                      BackgroundColor="Transparent"
+                      SelectionMode="None"
+                      ItemsSource="{Binding Ratings}">
+                
+                <ListView.Header>
+                    <StackLayout HorizontalOptions="Fill"
+                                 VerticalOptions="Fill">
+                        <Grid HorizontalOptions="FillAndExpand"
+                              Margin="{extensions:Thickness Left={x:Static styles:Layouts.Margin}, Right={x:Static styles:Layouts.Margin}}"
+                              RowSpacing="0"
+                              ColumnSpacing="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <controls:LabelDarkPrimary Text="{x:Static labels:Labels.AboutMe}"
+                                           Margin="{extensions:Thickness Up={extensions:ScreenMarckup FullValue={x:Static styles:Layouts.Margin}, RequiredPercentage=150}}"
+                                           FontSize="{x:Static styles:Fonts.ExtraLargeSize}"
+                                           HorizontalOptions="Start"
+                                           VerticalOptions="Center"
+                                           Grid.Row="7"
+                                           Grid.Column="0"
+                                           Grid.ColumnSpan="2"/>
+
+                            <controls:LabelDarkPrimary Text="{Binding Doctor.UserDescription}"
+                                           HorizontalOptions="Start"
+                                           VerticalOptions="Center"
+                                           Grid.Row="8"
+                                           Grid.Column="0"
+                                           Grid.ColumnSpan="3"/>
+                            <controls:Divider HorizontalOptions="Fill"
+                                  Margin="{extensions:Thickness Up={extensions:ScreenMarckup FullValue={x:Static styles:Layouts.Margin}, RequiredPercentage=100}}"
+                                  Color="{x:Static styles:Colors.PrimaryColor}"
+                                  VerticalOptions="Start"
+                                  Grid.Row="9"
+                                  Grid.Column="0"
+                                  Grid.ColumnSpan="3"/>
+
+                            <controls:LabelDarkPrimary Text="{x:Static labels:Labels.Calendar}"
+                                           Margin="{extensions:Thickness Up={extensions:ScreenMarckup FullValue={x:Static styles:Layouts.Margin}, RequiredPercentage=150}}"
+                                           FontSize="{x:Static styles:Fonts.ExtraLargeSize}"
+                                           HorizontalOptions="Start"
+                                           VerticalOptions="Center"
+                                           Grid.Row="10"
+                                           Grid.Column="0"
+                                           Grid.ColumnSpan="2"/>
+
+                            <controls:LabelDarkPrimary Text="{x:Static labels:Labels.SelectADay}"
+                                           HorizontalOptions="Start"
+                                           VerticalOptions="Center"
+                                           Grid.Row="11"
+                                           Grid.Column="0"
+                                           Grid.ColumnSpan="3"/>
+                        </Grid>
+
+                        <pluginCalendar:Calendar SelectedDate="{Binding SelectedDate, Mode=TwoWay}"
+                                                 Events="{Binding MonthEvents}"
+                                                 SwipeLeftCommand="{Binding SwipeLeftCommand}"
+                                                 SwipeRightCommand="{Binding SwipeRightCommand}"
+                                                 Month="{Binding CurrentMonth, Mode=TwoWay}"
+                                                 Year="{Binding CurrentYear, Mode=TwoWay}"
+                                                 CalendarSectionShown="True"
+                                                 FooterArrowVisible="True"
+                                                 EventIndicatorType="Background"
+                                                 EventIndicatorColor="{x:Static styles:Colors.PrimaryColor}"
+                                                 EventIndicatorSelectedColor="{x:Static styles:Colors.PrimaryColorLight}"
+                                                 EventIndicatorSelectedTextColor="White"
+                                                 EventIndicatorTextColor="White"
+                                                 DisabledDayColor="Gray"
+                                                 ShowMonthPicker="True"
+                                                 ShowYearPicker="False"
+                                                 VerticalOptions="FillAndExpand"
+                                                 HorizontalOptions="FillAndExpand"
+                                                 Grid.Row="2"/>
+                        
+                        <StackLayout HorizontalOptions="FillAndExpand"
+                                     VerticalOptions="Center"
+                                     Orientation="Horizontal"
+                                     Margin="{x:Static styles:Layouts.Margin}"
+                                     Spacing="{extensions:ScreenMarckup FullValue={x:Static styles:Layouts.Margin}, RequiredPercentage=50}">
+                            <BoxView WidthRequest="15"
+                                     HeightRequest="15"
+                                     MinimumHeightRequest="15"
+                                     MinimumWidthRequest="15"
+                                     CornerRadius="10"
+                                     HorizontalOptions="Start"
+                                     Margin="0"
+                                     Color="{x:Static styles:Colors.PrimaryColor}"/>
+
+                            <controls:LabelDarkSecondary Text="{x:Static labels:Labels.AvailableHours}"
+                                                         HorizontalOptions="StartAndExpand"
+                                                         VerticalOptions="Center"
+                                                         Grid.Row="5"
+                                                         Grid.Column="1"/>
+                            <!--<BoxView WidthRequest="15"
+                                     HeightRequest="15"
+                                     MinimumHeightRequest="15"
+                                     MinimumWidthRequest="15"
+                                     CornerRadius="10"
+                                     HorizontalOptions="EndAndExpand"
+                                     Margin="0"
+                                     Color="{x:Static styles:Colors.CommonGray}"/>
+
+                            <controls:LabelDarkSecondary Text="{x:Static labels:Labels.NotAvailableHours}"
+                                                         HorizontalOptions="End"
+                                                         VerticalOptions="Center"
+                                                         Grid.Row="5"
+                                                         Grid.Column="1"/>-->
+                        </StackLayout>
+
+                        <CollectionView Margin="{extensions:Thickness Left={Static styles:Layouts.Margin}, Right={Static styles:Layouts.Margin}}"
+                                        HeightRequest="{extensions:ScreenMarckup FullValue={x:Static styles:Layouts.DisplayYSizePX}, RequiredPercentage=30}"
+                            ItemsSource="{Binding Times}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedTime}"
+                            VerticalOptions="FillAndExpand">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout Orientation="Vertical"
+                                     HorizontalItemSpacing="{Static styles:Layouts.Margin}"
+                                     VerticalItemSpacing="{Static styles:Layouts.Margin}"
+                                     Span="3"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <cells1:AppointmentTimeCell />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                            <CollectionView.EmptyView>
+                                <ContentView HorizontalOptions="FillAndExpand"
+                                 VerticalOptions="FillAndExpand">
+                                    <controls:LabelDarkPrimary HorizontalOptions="CenterAndExpand"
+                                                   VerticalOptions="CenterAndExpand"
+                                                   HorizontalTextAlignment="Center"
+                                                   Text="{Static labels:Labels.NoSlotsAvailable}"
+                                                   TextColor="{Static styles:Colors.TextDarkSecondary}"
+                                                   FontSize="{Static styles:Fonts.ExtraExtraLargeSize}"/>
+                                </ContentView>
+                            </CollectionView.EmptyView>
+                        </CollectionView>
+                        <!--<CollectionView HeightRequest="160"
+                            VerticalOptions="Start"
+                            Margin="{extensions:Thickness Left={Static styles:Layouts.Margin}, Right={Static styles:Layouts.Margin}}"
+                            ItemsSource="{Binding Days}"
+                            SelectionMode="Single"
+                            BackgroundColor="Transparent"
+                            SelectedItem="{Binding SelectedDay}"
+                            HorizontalScrollBarVisibility="Never">
+                            <CollectionView.ItemsLayout>
+                                <LinearItemsLayout Orientation="Horizontal"
+                                       ItemSpacing="{Static styles:Layouts.Margin}"/>
+                            </CollectionView.ItemsLayout>
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <cells1:AppointmentDayCell />
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>-->
+
+
+                        <StackLayout HorizontalOptions="FillAndExpand"
+                                     VerticalOptions="Center"
+                                     Margin="{extensions:Thickness Left={x:Static styles:Layouts.Margin}, Right={x:Static styles:Layouts.Margin}}"
+                                     Orientation="Horizontal">
+                            <!-- Feedbacks header-->
+                            <controls:LabelDarkPrimary Text="{x:Static labels:Labels.Feedbacks}"
+                                                       FontSize="{x:Static styles:Fonts.LargeSize}"
+                                                       VerticalTextAlignment="Center"
+                                                       HorizontalOptions="StartAndExpand"/>
+                            <controls:LabelDarkPrimary Text="{x:Static labels:Labels.ViewAll}"
+                                                       VerticalTextAlignment="Center"
+                                                       TextColor="{x:Static styles:Colors.PrimaryColor}"
+                                                       HorizontalOptions="EndAndExpand">
+                                <controls:LabelDarkPrimary.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding FeedbacksCommand}"/>
+                                </controls:LabelDarkPrimary.GestureRecognizers>
+                            </controls:LabelDarkPrimary>
+                        </StackLayout>
+
+                    </StackLayout>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <cells:RatingCell/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+                <!-- Book appointment -->
+                <Button HorizontalOptions="Fill"
+                    HeightRequest="50"
+                    TranslationY="20"
+                    Margin="{extensions:Thickness Left={x:Static styles:Layouts.Margin}, Right={x:Static styles:Layouts.Margin}}"
+                    Text="{Static labels:Labels.BookAnAppointment}"
+                    Command="{Binding BookAppointmentCommand}"
+                    Grid.Row="4"/>
+        </StackLayout>
+    </views:BaseContentPage.Content>
+</views:BaseContentPage>

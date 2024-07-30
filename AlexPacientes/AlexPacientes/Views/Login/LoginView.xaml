@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       xmlns:views="clr-namespace:AlexPacientes.Views"
+                       xmlns:labels="clr-namespace:AlexPacientes.Labels"
+                       xmlns:styles="clr-namespace:AlexPacientes.Styles"
+                       xmlns:controls="clr-namespace:AlexPacientes.Controls"
+                       xmlns:extensions="clr-namespace:AlexPacientes.Extensions"
+                       xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+                       mc:Ignorable="d"
+                       x:Class="AlexPacientes.Views.Login.LoginView"
+                       NavBarTitle="{x:Static labels:Labels.Login}"
+                       NavBarTitleAlignment="Center"
+                       NavBarHideLeftIcon="True"
+                       NavBarSize="Small"
+                       NavBarHideRightIcon="True">
+    <views:BaseContentPage.Content>
+        <StackLayout Padding="{x:Static styles:Layouts.Margin}">
+            <svg:SvgCachedImage WidthRequest="80"
+                                HeightRequest="80"
+                                HorizontalOptions="CenterAndExpand"
+                                Source="{x:Static styles:Icons.LogoGreen}"
+                                Margin="{extensions:Thickness Up={x:Static styles:Layouts.Margin}}"/>
+            <controls:LabelDarkPrimary HorizontalOptions="CenterAndExpand"
+                                       Text="{Static labels:Labels.WelcomeBackMindHelp}"
+                                       TextColor="{Static styles:Colors.PrimaryColor}"
+                                       FontSize="{Static styles:Fonts.ExtraExtraLargeSize}"
+                                       Margin="{Static styles:Layouts.Margin}"/>
+            <controls:FloatLabelCustomEntry HorizontalOptions="FillAndExpand"
+                                            Placeholder="{x:Static labels:Labels.Email}"
+                                            Text="{Binding Username, Mode=TwoWay}"
+                                            BorderType="Line"
+                                            Margin="{extensions:Thickness Up={Static styles:Layouts.Margin}}"/>
+            <controls:FloatLabelCustomEntry HorizontalOptions="FillAndExpand"
+                                            Placeholder="{x:Static labels:Labels.Password}"
+                                            Text="{Binding Password, Mode=TwoWay}"
+                                            BorderType="Line"/>
+            <controls:LabelDarkPrimary HorizontalOptions="EndAndExpand"
+                                       Text="{x:Static labels:Labels.ForgotPasswordQuestion}"
+                                       TextColor="{x:Static styles:Colors.PrimaryColor}">
+                <controls:LabelDarkPrimary.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}"/>
+                </controls:LabelDarkPrimary.GestureRecognizers>
+            </controls:LabelDarkPrimary>
+            <Button HorizontalOptions="FillAndExpand"
+                    VerticalOptions="EndAndExpand"
+                    HeightRequest="50"
+                    Text="{x:Static labels:Labels.Login}"
+                    Command="{Binding LoginCommand}"/>
+            <controls:LabelDarkPrimary HorizontalOptions="CenterAndExpand"
+                                       Margin="{extensions:Thickness Up={x:Static styles:Layouts.Margin}, Bottom={x:Static styles:Layouts.Margin}}">
+                <controls:LabelDarkPrimary.FormattedText>
+                    <FormattedString>
+                        <Span Text="{x:Static labels:Labels.AccountQuestionNegative}"/>
+                        <Span Text=" "/>
+                        <Span Text="{x:Static labels:Labels.SignUp}" TextColor="{x:Static styles:Colors.PrimaryColor}">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SignUpCommand}"/>
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </controls:LabelDarkPrimary.FormattedText>
+            </controls:LabelDarkPrimary>
+        </StackLayout>
+    </views:BaseContentPage.Content>
+</views:BaseContentPage>

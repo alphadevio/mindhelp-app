@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       mc:Ignorable="d"
+                       xmlns:views="clr-namespace:AlexPacientes.Views"
+                       xmlns:labels="clr-namespace:AlexPacientes.Labels"
+                       xmlns:styles="clr-namespace:AlexPacientes.Styles"
+                       xmlns:controls="clr-namespace:AlexPacientes.Controls"
+                       xmlns:extensions="clr-namespace:AlexPacientes.Extensions"
+                       xmlns:behaviorspack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+                       xmlns:cells="clr-namespace:AlexPacientes.Views.Settings.Plans.Cells"
+                       NavBarTitle="{x:Static labels:Labels.Plans}"
+                       NavBarTitleAlignment="Start"
+                       NavBarHideRightIcon="True"
+                       NavBarSize="Small"            
+                       NavBarLeftIconCommand="{Binding BackCommand}"
+                       x:Class="AlexPacientes.Views.Settings.Plans.PlansView">
+    <views:BaseContentPage.Content>
+        <Grid>
+            <ListView HorizontalOptions="FillAndExpand"
+                      VerticalOptions="FillAndExpand"
+                      HasUnevenRows="True"
+                      BackgroundColor="Transparent"
+                      SeparatorVisibility="None"
+                      ItemsSource="{Binding Plans}"
+                      VerticalScrollBarVisibility="Never">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <cells:PlanCell />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Behaviors>
+                    <behaviorspack:EventToCommandBehavior EventName="ItemTapped"
+                                                          EventArgsPropertyPath="Item"
+                                                          Command="{Binding SelectPlanCommand}"/>
+                </ListView.Behaviors>
+            </ListView>
+            <controls:LoadingView IsRunning="{Binding IsBusy}"/>
+        </Grid>
+    </views:BaseContentPage.Content>
+</views:BaseContentPage>

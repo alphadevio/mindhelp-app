@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:labels="clr-namespace:AlexPacientes.Labels"
+             xmlns:styles="clr-namespace:AlexPacientes.Styles"
+             xmlns:controls="clr-namespace:AlexPacientes.Controls"
+             xmlns:extensions="clr-namespace:AlexPacientes.Extensions"
+             xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             mc:Ignorable="d"
+             x:Class="AlexPacientes.Views.Chat.VideoChatView"
+             BackgroundColor="{x:Static styles:Colors.CallBackgroundColor}"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackLayout VerticalOptions="Start"
+                         Orientation="Horizontal"
+                         Margin="{extensions:Thickness Up={extensions:ScreenMarckup FullValue={Static styles:Layouts.DoubleMargin}, RequiredPercentage=80}, Left={Static styles:Layouts.DoubleMargin}}"                   
+                         Grid.Row="0">
+                <controls:SvgIconButton VerticalOptions="Center"
+                                        WidthRequest="32"
+                                        HeightRequest="32"
+                                        Source="{Static styles:Icons.BackArrow}"
+                                        ClickCommand="{Binding BackCommand}"/>
+                <controls:LabelDarkPrimary Text="{Binding Doctor.Name}"
+                                           TextColor="White"
+                                           FontSize="{Static styles:Fonts.ExtraLargeSize}"/>
+            </StackLayout>
+            
+            <controls:StreamView x:Name="clientView"
+                                 HorizontalOptions="Fill"
+                                 VerticalOptions="Fill"
+                                 InputTransparent="True"
+                                 Grid.Row="0"
+                                 Grid.RowSpan="2"/>
+            <forms:CachedImage WidthRequest="80"
+                               HeightRequest="80"
+                               Margin="{extensions:Thickness Up={extensions:ScreenMarckup FullValue={Static styles:Layouts.DoubleMargin}, RequiredPercentage=180}, Left={extensions:ScreenMarckup FullValue={Static styles:Layouts.DoubleMargin}, RequiredPercentage=50}}"
+                               Source="{x:Static styles:Icons.RoundIcon}"
+                               Opacity="0.2"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Start"/>
+            <Frame HorizontalOptions="EndAndExpand"
+                   VerticalOptions="Start"
+                   Margin="{extensions:Thickness Up={extensions:ScreenMarckup FullValue={Static styles:Layouts.DoubleMargin}, RequiredPercentage=180}, Right={Static styles:Layouts.DoubleMargin}}"
+                   WidthRequest="100"
+                   HeightRequest="100"
+                   BackgroundColor="Transparent"
+                   IsClippedToBounds="True"
+                   HasShadow="False"
+                   CornerRadius="10"
+                   Padding="0"
+                   Grid.Row="0">
+                <controls:StreamView x:Name="hostView"
+                                     WidthRequest="100"
+                                     HeightRequest="100"/>
+            </Frame>
+
+
+            <controls:LabelDarkPrimary Text="{x:Static labels:Labels.VideoSessionInstructions}"
+                                       IsVisible="{Binding ShouldDisplayInstructions}"
+                                       VerticalOptions="CenterAndExpand" 
+                                       HorizontalOptions="CenterAndExpand" 
+                                       TextColor="White"
+                                       FontSize="{Static styles:Fonts.LargeSize}"
+                                       Grid.Row="0"
+                                       Grid.RowSpan="2"/>
+            <Grid HorizontalOptions="Center"
+                  VerticalOptions="Center"
+                  Margin="{extensions:Thickness Bottom={Static styles:Layouts.Margin}}"
+                  Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <ImageButton WidthRequest="{x:Static styles:Layouts.CommonCallIconSize}"
+                             HeightRequest="{x:Static styles:Layouts.CommonCallIconSize}"
+                             MinimumHeightRequest="{x:Static styles:Layouts.CommonCallIconSize}"
+                             MinimumWidthRequest="{x:Static styles:Layouts.CommonCallIconSize}"
+                             Source="{Binding CallStatusIcon}"
+                             Aspect="AspectFill"
+                             Command="{Binding ConnectToSessionCommand}"
+                             BackgroundColor="Transparent"
+                             Grid.Row="0"
+                             Grid.Column="1"/>
+                <ImageButton WidthRequest="{x:Static styles:Layouts.CommonCallIconSize}"
+                             HeightRequest="{x:Static styles:Layouts.CommonCallIconSize}"
+                             MinimumHeightRequest="{x:Static styles:Layouts.CommonCallIconSize}"
+                             MinimumWidthRequest="{x:Static styles:Layouts.CommonCallIconSize}"
+                             Aspect="AspectFill"
+                             Source="{Binding AudioStatusIcon}"
+                             BackgroundColor="Transparent"
+                             Command="{Binding MuteMicrophoneCommand}"
+                             Grid.Row="1"
+                             Grid.Column="0"/>
+                <ImageButton WidthRequest="{x:Static styles:Layouts.CommonCallIconSize}"
+                             HeightRequest="{x:Static styles:Layouts.CommonCallIconSize}"
+                             MinimumHeightRequest="{x:Static styles:Layouts.CommonCallIconSize}"
+                             MinimumWidthRequest="{x:Static styles:Layouts.CommonCallIconSize}"
+                             Aspect="AspectFill"
+                             Source="{Binding CameraStatusIcon}"
+                             Command="{Binding DisableVideoCommand}"
+                             BackgroundColor="Transparent"
+                             Grid.Row="1"
+                             Grid.Column="1"/>
+                <ImageButton WidthRequest="{x:Static styles:Layouts.CommonCallIconSize}"
+                             HeightRequest="{x:Static styles:Layouts.CommonCallIconSize}"
+                             MinimumHeightRequest="{x:Static styles:Layouts.CommonCallIconSize}"
+                             MinimumWidthRequest="{x:Static styles:Layouts.CommonCallIconSize}"
+                             Aspect="AspectFill"
+                             Source="{Static styles:Icons.CameraSwap}"
+                             BackgroundColor="Transparent"
+                             Command="{Binding SwapCameraCommand}"
+                             Grid.Row="1"
+                             Grid.Column="2"/>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

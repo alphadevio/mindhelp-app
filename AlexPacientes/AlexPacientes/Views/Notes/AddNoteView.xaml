@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       mc:Ignorable="d"
+                       xmlns:views="clr-namespace:AlexPacientes.Views"
+                       xmlns:labels="clr-namespace:AlexPacientes.Labels"
+                       xmlns:styles="clr-namespace:AlexPacientes.Styles"
+                       xmlns:controls="clr-namespace:AlexPacientes.Controls"
+                       xmlns:extensions="clr-namespace:AlexPacientes.Extensions"
+                       xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+                       xmlns:behaviorspack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
+                       xmlns:cells="clr-namespace:AlexPacientes.Views.Chat.Cells"
+                       xmlns:cells1="clr-namespace:AlexPacientes.Views.Notes.Cells"
+                       NavBarTitle="{x:Static labels:Labels.Notes}"
+                       NavBarTitleAlignment="Start"
+                       NavBarHideRightIcon="True"
+                       NavBarSize="Small"
+                       x:Class="AlexPacientes.Views.Notes.AddNoteView">
+    <views:BaseContentPage.Content>
+        <Grid HorizontalOptions="FillAndExpand"
+              VerticalOptions="FillAndExpand"
+              Padding="{x:Static styles:Layouts.Margin}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <controls:CustomEntry HorizontalOptions="FillAndExpand"
+                                  VerticalOptions="Start"
+                                  Placeholder="{x:Static labels:Labels.AddATitle}"
+                                  BorderColor="Transparent"
+                                  BackgroundColor="Transparent"
+                                  Margin="0,8,0,0"
+                                  Text="{Binding NewNote.Title, Mode=TwoWay}"
+                                  Grid.Row="0"/>
+            <Editor HorizontalOptions="FillAndExpand"
+                    VerticalOptions="FillAndExpand"
+                    Placeholder="{x:Static labels:Labels.StartWriting}"
+                    Text="{Binding NewNote.Content, Mode=TwoWay}"
+                    Grid.Row="1"/>
+            <controls:LabelDarkPrimary HorizontalOptions="EndAndExpand"
+                                       VerticalOptions="StartAndExpand"
+                                       Text="{x:Static labels:Labels.Done}"
+                                       TextColor="{x:Static styles:Colors.PrimaryColor}"
+                                       FontAttributes="Bold">
+                <controls:LabelDarkPrimary.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding AddNoteCompletedCommand}"/>
+                </controls:LabelDarkPrimary.GestureRecognizers>
+            </controls:LabelDarkPrimary>
+        </Grid>
+    </views:BaseContentPage.Content>
+</views:BaseContentPage>

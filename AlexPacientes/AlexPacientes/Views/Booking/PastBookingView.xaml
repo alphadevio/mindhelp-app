@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:cells="clr-namespace:AlexPacientes.Views.Booking.Cells"
+             xmlns:views="clr-namespace:AlexPacientes.Views"
+             xmlns:labels="clr-namespace:AlexPacientes.Labels"
+             xmlns:styles="clr-namespace:AlexPacientes.Styles"
+             xmlns:controls="clr-namespace:AlexPacientes.Controls"
+             xmlns:extensions="clr-namespace:AlexPacientes.Extensions"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:svg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             xmlns:transformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             mc:Ignorable="d"
+             x:Class="AlexPacientes.Views.Booking.PastBookingView">
+  <ContentView.Content>
+        <Grid>
+            <ListView VerticalOptions="Fill"
+                      HasUnevenRows="True"
+                      SeparatorVisibility="None"
+                      SelectionMode="None"
+                      BackgroundColor="White"
+                      ItemsSource="{Binding Bookings}"
+                      IsPullToRefreshEnabled="True"
+                      RefreshCommand="{Binding PullToRefreshCommand}"
+                      IsRefreshing="{Binding IsRefreshing}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <cells:PastBookingCell />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <controls:LoadingView IsRunning="{Binding IsBusy}"/>
+        </Grid>
+    </ContentView.Content>
+</ContentView>
